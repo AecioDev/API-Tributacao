@@ -1,16 +1,47 @@
 package main
 
 import (
-	"api-tributacao/controller"
-	"api-tributacao/db"
-	"api-tributacao/repository"
-	"api-tributacao/services"
+	"api-tributacao/config"
+	"api-tributacao/src/controller"
+	"api-tributacao/src/db"
+	"api-tributacao/src/db/repository"
+	"api-tributacao/src/globals"
+	"api-tributacao/src/services"
+	"log"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	cfg, err := config.Parse()
+	if err != nil {
+		log.Fatalln("Failed to parse configuration: ", err)
+	}
 
+	database := db.New(cfg)
+	defer db.CloseConnection(database)
+
+	globals.SetDev(true)
+
+	// Inicialização dos Repositórios
+	produtoRepo := repository.ProdutoRepository.NewProdutoRepository(database, &cfg.App)
+
+	// Inicialização dos Services
+	produtoService := services.NewProdutoService(produtoRepo)
+
+	// Inicialização dos Controllers
+	produtoController := controller.NewProdutoController(produtoService)
+
+	// Configuração das Rotas
+	r := gin.Default()
+	r.GET("/produtos", produtoController.GetAll)
+	r.Run(":8080")
+
+}
+
+//------------------------------------------------
+/*
+func main() {
 	server := gin.Default()
 
 	dbConnection, err := db.ConnectDB()
@@ -19,7 +50,7 @@ func main() {
 	}
 
 	// Camada de Repository
-	ProdutoRepository := repository.NewProductRepository(dbConnection)
+	ProdutoRepository := repository.BaseRepository // NewProductRepository(dbConnection)
 
 	// Camada UseCase
 	ProdutoService := services.NewProdutoService(ProdutoRepository)
@@ -39,3 +70,4 @@ func main() {
 	server.Run(":8000")
 
 }
+*/

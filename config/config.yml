@@ -1,0 +1,29 @@
+# The default configuration, security credentials should be set with environment variables,
+# every key on this config has a env var equivalent that sets or overrides the config on this file.
+
+app:
+  debug: false
+  development: false
+
+jwt:
+  key: xfjypuD8i1xnxK0pVgCxyjszmnD6SHUI
+
+server:
+  port: 3000
+
+db:
+  url: "host=localhost port=5432 user=postgres dbname=portal_conhecimento password=postgres sslmode=disable"
+  name: "portal_conhecimento"
+  sync: true
+  seed: true
+  clear: true
+  migrate: true
+
+minio:
+  endpoint: "s0365.ms:9000"
+  accessKeyID: "ycX6zQNs7j1y0rizeONz"
+  secretAccessKey: "q66v9pkInSq4pfUMEzkQM9B5V6zr6sKSrZ8kqKjV"
+
+zimbra:
+  port: 7001
+  url: "https://mail.prefeitura.ms.gov.br"
