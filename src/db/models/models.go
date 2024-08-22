@@ -80,9 +80,9 @@ type Paises struct {
 type InitEntity struct {
 	gorm.Model
 
-	CreatedFor string `gorm:"not null"` // Nome do Usuário que Criou
-	UpdatedFor string `gorm:"not null"` // Nome do Usuário que Alterou
-	DeletedFor string `gorm:"not null"` // Nome do Usuário que Deletou
+	CreatedFor string // Nome do Usuário que Criou
+	UpdatedFor string // Nome do Usuário que Alterou
+	DeletedFor string // Nome do Usuário que Deletou
 }
 
 func (e *InitEntity) BeforeCreate(tx *gorm.DB) (err error) {

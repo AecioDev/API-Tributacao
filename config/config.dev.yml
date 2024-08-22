@@ -2,8 +2,8 @@
 # every key on this config has a env var equivalent that sets or overrides the config on this file.
 
 app:
-  debug: false
-  development: false
+  debug: true
+  development: true
 
 jwt:
   key: xfjypuD8i1xnxK0pVgCxyjszmnD6SHUI
@@ -13,10 +13,10 @@ server:
 
 db:
   url: "host=localhost port=5432 user=postgres dbname=bdapitrib password=1234 sslmode=disable"
-  name: "portal_conhecimento"
-  sync: false
-  seed: false
-  clear: false
+  name: "bdapitrib"
+  sync: true
+  seed: true
+  clear: true
   migrate: false
 
 #minio:

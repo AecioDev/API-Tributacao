@@ -24,50 +24,17 @@ func main() {
 	globals.SetDev(true)
 
 	// Inicialização dos Repositórios
-	produtoRepo := repository.ProdutoRepository.NewProdutoRepository(database, &cfg.App)
+	produtoRepo := repository.NewProdutoRepository(database, &cfg.App)
 
 	// Inicialização dos Services
 	produtoService := services.NewProdutoService(produtoRepo)
 
 	// Inicialização dos Controllers
-	produtoController := controller.NewProdutoController(produtoService)
+	produtoController := controller.NewProdutoController(*produtoService)
 
 	// Configuração das Rotas
 	r := gin.Default()
-	r.GET("/produtos", produtoController.GetAll)
+	r.GET("/produtos", produtoController.GetProdutos)
 	r.Run(":8080")
 
 }
-
-//------------------------------------------------
-/*
-func main() {
-	server := gin.Default()
-
-	dbConnection, err := db.ConnectDB()
-	if err != nil {
-		panic(err)
-	}
-
-	// Camada de Repository
-	ProdutoRepository := repository.BaseRepository // NewProductRepository(dbConnection)
-
-	// Camada UseCase
-	ProdutoService := services.NewProdutoService(ProdutoRepository)
-
-	// Camada de Controllers
-	ProdutoController := controller.NewProdutoController(ProdutoService)
-
-	// Rotas
-
-	// PRODUTOS
-	server.GET("/products", ProdutoController.GetProducts)
-	server.POST("/product", ProdutoController.CreateProduct)
-	server.PUT("/product", ProdutoController.UpdateProduct)
-	server.GET("/product/:id", ProdutoController.GetProductById)
-	server.DELETE("/product/:id", ProdutoController.DeleteProductById)
-
-	server.Run(":8000")
-
-}
-*/

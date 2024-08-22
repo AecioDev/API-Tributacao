@@ -40,26 +40,20 @@ func (ps *ProdutoService) Create(produto model.Produtos) (model.Produtos, error)
 
 func (ps *ProdutoService) Update(produto model.Produtos) (model.Produtos, error) {
 
+	err := ps.ProdutoRepo.BaseRepo.Update(&produto)
+	if err != nil {
+		return model.Produtos{}, err
+	}
+
 	return produto, nil
 }
 
-// Outros métodos específicos para Produto...
+func (ps *ProdutoService) Delete(produtoId uint) error {
 
-/*
-type ProdutoService struct {
-	*BaseServiceImpl[estoque.Produtos]
-}
-
-func NewProdutoService(repo *repository.RepositoryBase[estoque.Produtos]) *ProdutoService {
-	return &ProdutoService{
-		BaseServiceImpl: NewBaseService(repo),
-		// Inicialize outras dependências específicas do ProdutoService
+	err := ps.ProdutoRepo.BaseRepo.Delete(produtoId)
+	if err != nil {
+		return err
 	}
-}
 
-// Exemplo de método específico para Produto
-func (s *ProdutoService) GetByName(name string) (*estoque.Produtos, error) {
-	//return s.repo.GetByName(name)
-	return nil, nil
+	return nil
 }
-*/
