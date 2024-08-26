@@ -2,12 +2,13 @@ package main
 
 import (
 	"api-tributacao/config"
-	"api-tributacao/src/controller"
+	"api-tributacao/src/controllers/controller"
 	"api-tributacao/src/db"
-	"api-tributacao/src/db/repository"
 	"api-tributacao/src/globals"
-	"api-tributacao/src/services"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,18 +24,12 @@ func main() {
 
 	globals.SetDev(true)
 
-	// Inicialização dos Repositórios
-	produtoRepo := repository.NewProdutoRepository(database, &cfg.App)
+	sys := controller.New(gin.Default(), database, cfg)
 
-	// Inicialização dos Services
-	produtoService := services.NewProdutoService(produtoRepo)
+	sys.StartServer(cfg.Server.Port)
 
-	// Inicialização dos Controllers
-	produtoController := controller.NewProdutoController(*produtoService)
+	exit := make(chan os.Signal, 1)
+	signal.Notify(exit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
-	// Configuração das Rotas
-	r := gin.Default()
-	r.GET("/produtos", produtoController.GetProdutos)
-	r.Run(":8080")
-
+	<-exit
 }

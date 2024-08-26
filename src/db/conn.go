@@ -3,6 +3,8 @@ package db
 import (
 	"api-tributacao/config"
 	model "api-tributacao/src/db/models"
+	"api-tributacao/src/db/models/cadastros"
+	"api-tributacao/src/db/models/estoque"
 	"api-tributacao/src/db/seeder"
 	"database/sql"
 	"errors"
@@ -27,21 +29,21 @@ var tablesToSync = []any{
 	&model.Paises{},
 
 	//Modelos Cadastros
-	&model.Fornecedores{},
+	&cadastros.Fornecedores{},
 
 	//Modelos Estoque
-	&model.Produtos{},
-	&model.CodigosProduto{},
-	&model.CustoProdutos{},
-	&model.Grupos{},
-	&model.LocalEstoque{},
-	&model.Marcas{},
-	&model.MovimentoEstoque{},
-	&model.PrecoProdutos{},
-	&model.SaldoEstoque{},
-	&model.SubGrupos{},
-	&model.TributacaoProdutos{},
-	&model.Unidades{},
+	&estoque.Produtos{},
+	&estoque.CodigosProduto{},
+	&estoque.CustoProdutos{},
+	&estoque.Grupos{},
+	&estoque.LocalEstoque{},
+	&estoque.Marcas{},
+	&estoque.MovimentoEstoque{},
+	&estoque.PrecoProdutos{},
+	&estoque.SaldoEstoque{},
+	&estoque.SubGrupos{},
+	&estoque.TributacaoProdutos{},
+	&estoque.Unidades{},
 }
 
 // Creates a new GORM instance and inits the connetion pool, panics if anything goes wrong
