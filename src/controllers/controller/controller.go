@@ -55,6 +55,21 @@ func (r *ControllerServer) StartServer(port int) {
 	sys.PATCH("/estoque/produto", produtoController.UpdateProduto)
 	sys.DELETE("/estoque/produto/:id", produtoController.DeleteProduto)
 
+	// ESTOQUE/CÓDIGOS DE PRODUTOS
+	codproRepo := estoqueRepository.NewCodigosProdutoRepository(r.database, &r.cfgApp.App)
+	codproService := estoqueServices.NewCodigosProdutoService(codproRepo)
+	codproController := estoqueController.NewCodigosProdutoController(*codproService)
+
+	// Endpoints Para Produtos
+	sys.GET("/estoque/codigosprodutos", codproController.GetCodigosProdutos)
+	sys.GET("/estoque/codigosproduto/:id", codproController.GetCodigosProdutoByID)
+	sys.GET("/estoque/codigosproduto-fornecedor/:id", codproController.GetCodigosProdutosByFornecedorId)
+	sys.POST("/estoque/codigosproduto", codproController.CreateCodigosProduto)
+	sys.PATCH("/estoque/codigosproduto", codproController.UpdateCodigosProduto)
+	sys.DELETE("/estoque/codigosproduto/:id", codproController.DeleteCodigosProduto)
+
+
+	
 	// Inicia o Servidor GIN
 	if err := r.router.Run(fmt.Sprintf(":%d", port)); err != nil {
 		log.Fatalf("failed to start server: %v", err)

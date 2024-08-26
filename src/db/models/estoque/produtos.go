@@ -23,12 +23,12 @@ type Produtos struct {
 	UnidadeCmp *Unidades `gorm:"foreignKey:UnidadeCompra"` // Relacionamento M:1
 
 	//Relacionamentos 1 pra Muitos
-	Custos           []CustoProdutos      `gorm:"foreignKey:ProdutoID"` // Históri de Custos do produto
-	Precos           []PrecoProdutos      `gorm:"foreignKey:ProdutoID"` // Preço do produto
-	Codigos          []CodigosProduto     `gorm:"foreignKey:ProdutoID"` // Cadastro dos Códigos de Barras por Fornecedor
-	Tributacoes      []TributacaoProdutos `gorm:"foreignKey:ProdutoID"` // Cadastro das Tributações do Produto
-	SaldoEstoque     []SaldoEstoque       `gorm:"foreignKey:ProdutoID"` // O Produto pode ter saldo em mais de um Local de Estoque
-	MovimentoEstoque []MovimentoEstoque   `gorm:"foreignKey:ProdutoID"` // Movimentações de Entrada e Saída do produto
+	Custos           []CustoProdutos       `gorm:"foreignKey:ProdutoID"` // Históri de Custos do produto
+	Precos           []PrecosProdutos      `gorm:"foreignKey:ProdutoID"` // Preço do produto
+	Codigos          []CodigosProduto      `gorm:"foreignKey:ProdutoID"` // Cadastro dos Códigos de Barras por Fornecedor
+	Tributacoes      []TributacaoProdutos  `gorm:"foreignKey:ProdutoID"` // Cadastro das Tributações do Produto
+	SaldoEstoque     []SaldoEstoqueProduto `gorm:"foreignKey:ProdutoID"` // O Produto pode ter saldo em mais de um Local de Estoque
+	MovimentoEstoque []MovimentosEstoque   `gorm:"foreignKey:ProdutoID"` // Movimentações de Entrada e Saída do produto
 }
 
 func (Produtos) TableName() string {

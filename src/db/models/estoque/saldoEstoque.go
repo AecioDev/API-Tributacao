@@ -4,7 +4,7 @@ import (
 	model "api-tributacao/src/db/models"
 )
 
-type SaldoEstoque struct {
+type SaldoEstoqueProduto struct {
 	model.InitEntity
 
 	ProdutoID      uint    `gorm:"not null"` // Chave estrangeira para Produto

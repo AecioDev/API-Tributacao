@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type MovimentoEstoque struct {
+type MovimentosEstoque struct {
 	model.InitEntity
 
 	ProdutoID      uint      `gorm:"not null"` // Chave estrangeira para Produto
